@@ -3,6 +3,7 @@ const fastify = require('fastify')({ logger: true })
 const mongoose = require('mongoose');
 const remote = require('./remote.file')
 const config = require('./config')
+const routesMeta = require('./routes/routes.file.meta')
 
 //connected fastify to mongoose
 try {//
@@ -17,6 +18,8 @@ fastify.register(require('fastify-cors'), {
 })
 
 // Declare a route
+routesMeta(fastify);
+
 fastify.get('/', async (request, reply) => {
     return { hello: 'world' }
 })
