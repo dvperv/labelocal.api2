@@ -8,6 +8,6 @@ const noteSchema = new Schema({
     label: { type: String, required: true, enum: ['STAR', 'EMPTY', 'UNKNOWN', 'BLUEFIELD'] }
 });
 
-const FileMeta = mongoose.model('file-meta', noteSchema);
+const SchemaFileMeta = mongoose.model('file-meta', noteSchema);
 
-module.exports = FileMeta;
+module.exports = SchemaFileMeta;
