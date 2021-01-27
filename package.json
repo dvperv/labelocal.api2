@@ -14,5 +14,8 @@
     "fastify-cors": "^5.2.0",
     "mongoose": "^5.11.13",
     "ssh2": "^0.8.9"
+  },
+  "devDependencies": {
+    "objpack": "0.0.2"
   }
 }
