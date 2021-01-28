@@ -74,7 +74,7 @@ module.exports = {
                         if (err) throw err;
                         console.log(`${remoteFile} has successfully download to ${localFile}!`);
                         conn.end();
-                        resolve(getLocal(localFile));//TODO return png + meta instead
+                        resolve(getLocal(localFile));
                     })
                 });
             }).connect({
