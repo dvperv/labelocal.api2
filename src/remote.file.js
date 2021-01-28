@@ -33,7 +33,7 @@ function parse(data){
                 else res.npoints = val;
             }
             i++;
-            pStart = pEnd + 1;//pEnd will be incremented by cycle
+            pStart = pEnd + 1;//pEnd will be incremented by the cycle
         }
     }
 
