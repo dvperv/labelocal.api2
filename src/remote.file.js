@@ -17,7 +17,7 @@ function getLocal(file){
 
 function parse(data){
     if (!(data instanceof Buffer)) {
-        throw new Error('not a instanceof Buffer');
+        throw new Error('not an instance of Buffer');
     }
     console.log('Parsing data...')
 
