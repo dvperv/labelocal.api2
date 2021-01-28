@@ -1,11 +1,11 @@
-const modelFileMeta = require('../model/model.file.meta');
+const model = require('../model/model.file.meta');
 
 module.exports = {
     //# create
     create: async (request, reply) => {
         try {
             const meta = request.body;
-            const newMeta = await modelFileMeta.create(meta);
+            const newMeta = await model.create(meta);
             reply.code(201).send(newMeta);
         } catch (e) {
             reply.code(500).send(e);
@@ -15,7 +15,7 @@ module.exports = {
     //#get the list
     fetch: async (request, reply) => {
         try {
-            const metas = await modelFileMeta.find({});
+            const metas = await model.find({});
             reply.code(200).send(metas);
         } catch (e) {
             reply.code(500).send(e);
@@ -26,7 +26,7 @@ module.exports = {
     get: async (request, reply) => {
         try {
             const metaId = request.params.id;
-            const meta = await modelFileMeta.findById(metaId);
+            const meta = await model.findById(metaId);
             reply.code(200).send(meta);
         } catch (e) {
             reply.code(500).send(e);
@@ -38,8 +38,8 @@ module.exports = {
         try {
             const metaId = request.params.id;
             const updates = request.body;
-            await modelFileMeta.findByIdAndUpdate(metaId, updates);
-            const updatedMeta = await modelFileMeta.findById(metaId);
+            await model.findByIdAndUpdate(metaId, updates);
+            const updatedMeta = await model.findById(metaId);
             reply.code(200).send({ data: updatedMeta });
         } catch (e) {
             reply.code(500).send(e);
@@ -50,8 +50,8 @@ module.exports = {
     delete: async (request, reply) => {
         try {
             const metaId = request.params.id;
-            const metaToDelete = await modelFileMeta.findById(metaId);
-            await modelFileMeta.findByIdAndDelete(metaId);
+            const metaToDelete = await model.findById(metaId);
+            await model.findByIdAndDelete(metaId);
             reply.code(200).send({ data: metaToDelete });
         } catch (e) {
             reply.code(500).send(e);

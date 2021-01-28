@@ -24,8 +24,13 @@ fastify.get('/', async (request, reply) => {
     return { hello: 'world' }
 })
 
+fastify.get('/dir', async (request, reply) => {
+    let res = await remote.getDir();
+    return { res:  res}
+})
+
 fastify.get('/file', async (request, reply) => {
-    let res = await remote.get();
+    let res = await remote.getFile('/home/dmitriy/transients/transients2016-high/001/000000.pnt');
     return { res:  res}
 })
 

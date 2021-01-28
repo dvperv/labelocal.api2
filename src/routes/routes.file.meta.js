@@ -1,18 +1,18 @@
-const controllerFileMeta = require('../controllers/controller.file.meta')
+const controller = require('../controllers/controller.file.meta')
 
 module.exports = (app) => {
     // create a meta
-    app.post('/api/meta', controllerFileMeta.create);
+    app.post('/api/meta', controller.create);
 
     // get the list of metas
-    app.get('/api/meta', controllerFileMeta.fetch);
+    app.get('/api/meta', controller.fetch);
 
     // get a single meta
-    app.get('/api/meta/:id', controllerFileMeta.get);
+    app.get('/api/meta/:id', controller.get);
 
     // update a meta
-    app.put('/api/meta/:id', controllerFileMeta.update);
+    app.put('/api/meta/:id', controller.update);
 
     // delete a meta
-    app.delete('/api/meta/:id', controllerFileMeta.delete);
+    app.delete('/api/meta/:id', controller.delete);
 }
