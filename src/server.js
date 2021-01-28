@@ -1,6 +1,6 @@
 // Require the framework and instantiate it
 const fastify = require('fastify')({ logger: true })
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 const remote = require('./remote.file')
 const config = require('./config')
 const routesMeta = require('./routes/routes.file.meta')
