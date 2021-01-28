@@ -2,7 +2,6 @@ const Client = require('ssh2').Client;
 const config = require('./config');
 const conn = new Client();
 const fs = require('fs')
-const readline = require('readline');
 
 const localFile = 'temp.pnt';
 
@@ -17,7 +16,30 @@ function getLocal(file){
 }
 
 function parse(data){
-    return data; //TODO Parse
+    if (!(data instanceof Buffer)) {
+        throw new Error('not a instanceof Buffer');
+    }
+    console.log('Parsing data...')
+
+    let res = {}
+
+    let pEnd = 0
+    for (let i = 0, pStart = 0; pEnd < data.length && i < 24 ; pEnd++) {
+        if (data[pEnd] == "\n".charCodeAt(0)) {
+            //line ended
+            if (i == 6 || i == 23) {
+                const val = +data.slice(pStart, pEnd).toString('utf8').split(/\s+/)[1];
+                if (i == 6) res.nbands = val;
+                else res.npoints = val;
+            }
+            i++;
+            pStart = pEnd + 1;//pEnd will be incremented by cycle
+        }
+    }
+
+    res.trans = data.slice(pEnd, data.length);
+
+    return res;
 }
 
 module.exports = {
