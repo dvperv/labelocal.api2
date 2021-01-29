@@ -3,13 +3,14 @@ const config = require('./config');
 const conn = new Client();
 const fs = require('fs')
 
+const bc = require('./utils/buffer.cast')
+
 const localFile = 'temp.pnt';
 
 function getLocal(file){
     return new Promise((resolve, reject) => {
         fs.readFile(file, (err, data) => {
             if (err) throw err;
-            console.log(data)
             resolve(parse(data))
         })
     })
@@ -37,7 +38,9 @@ function parse(data){
         }
     }
 
-    res.trans = data.slice(pEnd, data.length);
+    res.trans = bc.bufferToFloatArray(data.slice(pEnd, data.length))
+
+    console.log('total points: ' + res.trans.length);
 
     return res;
 }
