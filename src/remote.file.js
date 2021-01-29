@@ -39,7 +39,7 @@ function parse(data){
     }
 
     res.trans = bc.bufferToFloatArray(data.slice(pEnd, data.length))
-
+//TODO pass ready normalised grayscale, not float
     console.log('total points: ' + res.trans.length);
 
     return res;
