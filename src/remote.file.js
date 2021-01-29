@@ -1,9 +1,10 @@
 const Client = require('ssh2').Client;
 const config = require('./config');
 const conn = new Client();
-const fs = require('fs')
+const fs = require('fs');
 
 const bc = require('./utils/buffer.cast')
+const tp = require('./utils/to.pic')
 
 const localFile = 'temp.pnt';
 
@@ -18,7 +19,7 @@ function getLocal(file){
 
 function parse(data){
     if (!(data instanceof Buffer)) {
-        throw new Error('not an instance of Buffer');
+        throw new Error('not an instance of a Buffer');
     }
     console.log('Parsing data...')
 
@@ -38,9 +39,8 @@ function parse(data){
         }
     }
 
-    res.trans = bc.bufferToFloatArray(data.slice(pEnd, data.length))
-//TODO pass ready normalised grayscale, not float
-    console.log('total points: ' + res.trans.length);
+    // res.trans = bc.bufferToFloatArray(data.slice(pEnd, data.length))
+    res.grayscale255 = tp.GrayScaleData(bc.bufferToFloatArray(data.slice(pEnd, data.length)))
 
     return res;
 }
@@ -67,7 +67,7 @@ module.exports = {
             });
         })
     },
-    getFile(remoteFile) {
+    getFile(remoteFile) {//TODO Why at second endpoint request it happens twice (Client :: ready x2) and hangs????
         return new Promise((resolve, reject) => {
             conn.on('ready', function () {
                 console.log('Client :: ready');
@@ -77,7 +77,7 @@ module.exports = {
                         if (err) throw err;
                         console.log(`${remoteFile} has successfully download to ${localFile}!`);
                         conn.end();
-                        resolve(getLocal(localFile));
+                        resolve('test'/*getLocal(localFile)*/);
                     })
                 });
             }).connect({

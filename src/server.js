@@ -6,8 +6,8 @@ const config = require('./config')
 const routesMeta = require('./routes/routes.file.meta')
 
 //connected fastify to mongoose
-try {//
-    mongoose.connect(config.mongo);
+try {
+    mongoose.connect(config.mongo, { useNewUrlParser: true,  useUnifiedTopology: true });
 } catch (e) {
     console.error(e);
 }
@@ -31,7 +31,7 @@ fastify.get('/dir', async (request, reply) => {
 
 fastify.get('/file', async (request, reply) => {
     let res = await remote.getFile('/home/dmitriy/transients/transients2016-high/001/000000.pnt');
-    return { res:  res}
+    return res
 })
 
 // Run the server!
