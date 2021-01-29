@@ -1,6 +1,5 @@
 const Client = require('ssh2').Client;
 const config = require('./config');
-const conn = new Client();
 const fs = require('fs');
 
 const bc = require('./utils/buffer.cast')
@@ -48,6 +47,7 @@ function parse(data){
 module.exports = {
     getDir() {
         return new Promise((resolve, reject) => {
+            const conn = new Client();
             conn.on('ready', function () {
                 console.log('Client :: ready');
                 conn.sftp(function (err, sftp) {
@@ -67,8 +67,9 @@ module.exports = {
             });
         })
     },
-    getFile(remoteFile) {//TODO Why at second endpoint request it happens twice (Client :: ready x2) and hangs????
+    getFile(remoteFile) {
         return new Promise((resolve, reject) => {
+            const conn = new Client();
             conn.on('ready', function () {
                 console.log('Client :: ready');
                 conn.sftp(function (err, sftp) {
@@ -77,7 +78,7 @@ module.exports = {
                         if (err) throw err;
                         console.log(`${remoteFile} has successfully download to ${localFile}!`);
                         conn.end();
-                        resolve('test'/*getLocal(localFile)*/);
+                        resolve(getLocal(localFile));
                     })
                 });
             }).connect({
