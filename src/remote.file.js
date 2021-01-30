@@ -52,7 +52,7 @@ module.exports = {
                 console.log('Client :: ready');
                 conn.sftp(function (err, sftp) {
                     if (err) throw err;
-                    sftp.readdir('/home', function (err, list) {
+                    sftp.readdir('/home/dmitriy/', function (err, list) {
                         if (err) throw err;
                         console.dir(list);
                         conn.end();
