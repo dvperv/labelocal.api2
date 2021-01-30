@@ -22,18 +22,18 @@ fastify.register(require('fastify-cors'), {
 routesMeta(fastify);
 
 fastify.get('/', async (request, reply) => {
-    return { hello: 'world' }
+    return { hello: 'world' };
 })
 
 fastify.post('/dir', async (request, reply) => {
-    console.log("Path: " + request.body.path)
+    console.log("Path: " + request.body.path);
     let res = await remote.getDir(request.body.path);
-    return { res:  res}
+    return res;
 })
 
 fastify.get('/file', async (request, reply) => {
     let res = await remote.getFile('/home/dmitriy/transients/transients2016-high/001/000000.pnt');
-    return res
+    return res;
 })
 
 // Run the server!

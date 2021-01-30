@@ -51,12 +51,21 @@ module.exports = {
             conn.on('ready', function () {
                 console.log('Client :: ready');
                 conn.sftp(function (err, sftp) {
-                    if (err) throw err;
+                    if (err) resolve({
+                        error: err,
+                        list: null
+                    })
                     sftp.readdir(path, function (err, list) {
-                        if (err) throw err;
+                        if (err) resolve({
+                            error: err,
+                            list: null
+                        })
                         console.dir(list);
                         conn.end();
-                        resolve(list);
+                        resolve({
+                            error: null,
+                            list: list
+                        });
                     });
                 });
             }).connect({
