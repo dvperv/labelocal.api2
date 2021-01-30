@@ -7,6 +7,7 @@ const routesMeta = require('./routes/routes.file.meta')
 
 //connected fastify to mongoose
 try {
+    console.log(config.mongo)
     mongoose.connect(config.mongo, { useNewUrlParser: true,  useUnifiedTopology: true });
 } catch (e) {
     console.error(e);
@@ -37,7 +38,7 @@ fastify.get('/file', async (request, reply) => {
 // Run the server!
 const start = async () => {
     try {
-        await fastify.listen(process.env.PORT || 3000, '0.0.0.0')
+        await fastify.listen(process.env.PORT || 3000, (process.env.MODE_DEV == 1 ? 'localhost' : '0.0.0.0'))
     } catch (err) {
         fastify.log.error(err)
         process.exit(1)
