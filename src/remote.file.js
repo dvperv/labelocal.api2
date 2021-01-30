@@ -45,14 +45,14 @@ function parse(data){
 }
 
 module.exports = {
-    getDir() {
+    getDir(path) {
         return new Promise((resolve, reject) => {
             const conn = new Client();
             conn.on('ready', function () {
                 console.log('Client :: ready');
                 conn.sftp(function (err, sftp) {
                     if (err) throw err;
-                    sftp.readdir('/home/dmitriy/', function (err, list) {
+                    sftp.readdir(path, function (err, list) {
                         if (err) throw err;
                         console.dir(list);
                         conn.end();

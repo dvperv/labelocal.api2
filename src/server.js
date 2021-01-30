@@ -25,8 +25,9 @@ fastify.get('/', async (request, reply) => {
     return { hello: 'world' }
 })
 
-fastify.get('/dir', async (request, reply) => {
-    let res = await remote.getDir();
+fastify.post('/dir', async (request, reply) => {
+    console.log("Path: " + request.body.path)
+    let res = await remote.getDir(request.body.path);
     return { res:  res}
 })
 
