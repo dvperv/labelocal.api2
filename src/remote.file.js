@@ -44,6 +44,12 @@ function parse(data){
     return res;
 }
 
+function dirCompactor(list){
+    let cList =[]
+    list.forEach( el => cList.push({ name: el.filename, isDir: (el.longname[0] == 'd')}))
+    return cList;
+}
+
 module.exports = {
     getDir(path) {
         return new Promise((resolve, reject) => {
@@ -60,11 +66,11 @@ module.exports = {
                             error: err,
                             list: null
                         })
-                        console.dir(list);
                         conn.end();
+                        let cList = dirCompactor(list);
                         resolve({
                             error: null,
-                            list: list
+                            list: cList
                         });
                     });
                 });
