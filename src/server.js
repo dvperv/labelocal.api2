@@ -15,6 +15,7 @@ try {
 
 fastify.register(require('fastify-cors'), {
     origin: false,
+    preflight: false,
     methods: 'GET,PUT,POST,DELETE'
 })
 
