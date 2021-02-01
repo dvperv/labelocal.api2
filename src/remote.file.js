@@ -44,7 +44,7 @@ function parse(data){
     return res;
 }
 
-function dirCompactor(list){
+function dirCompactor(list){ //filter *.pnt or dir only
     let cList =[]
     list.forEach( el => {
         if(
