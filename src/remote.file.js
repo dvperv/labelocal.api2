@@ -46,7 +46,13 @@ function parse(data){
 
 function dirCompactor(list){
     let cList =[]
-    list.forEach( el => cList.push({ name: el.filename, isDir: (el.longname[0] == 'd')}))
+    list.forEach( el => {
+        if(
+            el.longname[0] == 'd'
+            ||
+            el.name.length > 4 && el.name.slice(el.name.length - 4, el.name.length - 1) == '.pnt')
+            cList.push({ name: el.filename, isDir: (el.longname[0] == 'd')})
+    })
     return cList;
 }
 
