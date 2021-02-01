@@ -50,8 +50,9 @@ function dirCompactor(list){
         if(
             el.longname[0] == 'd'
             ||
-            el.name.length > 4 && el.name.slice(el.name.length - 4, el.name.length - 1) == '.pnt')
-            cList.push({ name: el.filename, isDir: (el.longname[0] == 'd')})
+            el.filename.length > 4 && el.filename.slice(el.filename.length - 4, el.filename.length) == '.pnt'
+        )
+                cList.push({ name: el.filename, isDir: (el.longname[0] == 'd')})
     })
     return cList;
 }
