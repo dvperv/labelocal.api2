@@ -31,8 +31,8 @@ fastify.post('/dir', async (request, reply) => {
     return res;
 })
 
-fastify.get('/file', async (request, reply) => {
-    let res = await remote.getFile('/home/dmitriy/transients/transients2016-high/001/000000.pnt');
+fastify.post('/file', async (request, reply) => {
+    let res = await remote.getFile(request.body.path);
     return res;
 })
 
