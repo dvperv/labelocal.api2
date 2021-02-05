@@ -95,12 +95,15 @@ module.exports = {
             conn.on('ready', function () {
                 console.log('Client :: ready');
                 conn.sftp(function (err, sftp) {
-                    if (err) throw err;
+                    if (err) resolve({
+                        error: err,
+                        info: null
+                    })
                     sftp.fastGet(remoteFile, localFile, function (err) {
                         if (err) throw err;
                         console.log(`${remoteFile} has successfully download to ${localFile}!`);
                         conn.end();
-                        resolve(getLocal(localFile));
+                        resolve({ err: null, info: getLocal(localFile)});
                     })
                 });
             }).connect({
