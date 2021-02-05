@@ -11,7 +11,6 @@ function getLocal(file){
     return new Promise((resolve, reject) => {
         fs.readFile(file, (err, data) => {
             if (err) throw err;
-            console.log(data)
             resolve(parse(data))
         })
     })
@@ -21,7 +20,6 @@ function parse(data){
     if (!(data instanceof Buffer)) {
         throw new Error('not an instance of a Buffer');
     }
-    console.log('Parsing data...')
 
     let res = {}
 
@@ -63,7 +61,6 @@ module.exports = {
         return new Promise((resolve, reject) => {
             const conn = new Client();
             conn.on('ready', function () {
-                console.log('Client :: ready');
                 conn.sftp(function (err, sftp) {
                     if (err) resolve({
                         error: err,
@@ -94,7 +91,6 @@ module.exports = {
         return new Promise((resolve, reject) => {
             const conn = new Client();
             conn.on('ready', function () {
-                console.log('Client :: ready');
                 conn.sftp(function (err, sftp) {
                     if (err) resolve({
                         error: err,
@@ -105,7 +101,6 @@ module.exports = {
                             error: err,
                             info: null
                         })
-                        console.log(`${remoteFile} has successfully download to ${localFile}!`);
                         conn.end();
                         resolve(getLocal(localFile));
                     })
