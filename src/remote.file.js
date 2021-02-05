@@ -11,6 +11,7 @@ function getLocal(file){
     return new Promise((resolve, reject) => {
         fs.readFile(file, (err, data) => {
             if (err) throw err;
+            console.log(data)
             resolve(parse(data))
         })
     })
@@ -60,14 +61,19 @@ function dirCompactor(list){
 module.exports = {
     getDir(path) {
         return new Promise((resolve, reject) => {
-            try{
             const conn = new Client();
             conn.on('ready', function () {
                 console.log('Client :: ready');
                 conn.sftp(function (err, sftp) {
-                    if (err) throw err;
+                    if (err) resolve({
+                        error: err,
+                        list: null
+                    })
                     sftp.readdir(path, function (err, list) {
-                        if (err) throw err;
+                        if (err) resolve({
+                            error: err,
+                            list: null
+                        })
                         conn.end();
                         let cList = dirCompactor(list);
                         resolve({
@@ -82,43 +88,34 @@ module.exports = {
                 username: config.username,
                 password: config.password
             });
-            }
-            catch (e) {
-                resolve({
-                    error: e,
-                    list: null
-                });
-            }
         })
     },
     getFile(remoteFile) {
         return new Promise((resolve, reject) => {
-            try {
-                const conn = new Client();
-                conn.on('ready', function () {
-                    console.log('Client :: ready');
-                    conn.sftp(function (err, sftp) {
-                        if (err) throw err;
-                        sftp.fastGet(remoteFile, localFile, function (err) {
-                            if (err) throw err;
-                            console.log(`${remoteFile} has successfully download to ${localFile}!`);
-                            conn.end();
-                            resolve({err: null, info: getLocal(localFile)});
+            const conn = new Client();
+            conn.on('ready', function () {
+                console.log('Client :: ready');
+                conn.sftp(function (err, sftp) {
+                    if (err) resolve({
+                        error: err,
+                        info: null
+                    })
+                    sftp.fastGet(remoteFile, localFile, function (err) {
+                        if (err) resolve({
+                            error: err,
+                            info: null
                         })
-                    });
-                }).connect({
-                    host: config.host,
-                    port: config.port,
-                    username: config.username,
-                    password: config.password
+                        console.log(`${remoteFile} has successfully download to ${localFile}!`);
+                        conn.end();
+                        resolve(getLocal(localFile));
+                    })
                 });
-            }
-            catch (e) {
-                resolve({
-                    error: e,
-                    info: null
-                })
-            }
+            }).connect({
+                host: config.host,
+                port: config.port,
+                username: config.username,
+                password: config.password
+            });
         })
     }
 }

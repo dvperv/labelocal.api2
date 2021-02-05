@@ -26,12 +26,13 @@ fastify.get('/', async (request, reply) => {
 })
 
 fastify.post('/dir', async (request, reply) => {
-    console.log("Path: " + request.body.path);
+    console.log("Dir Path: " + request.body.path);
     let res = await remote.getDir(request.body.path);
     return res;
 })
 
 fastify.post('/file', async (request, reply) => {
+    console.log("File Path: " + request.body.path);
     let res = await remote.getFile(request.body.path);
     return res;
 })
