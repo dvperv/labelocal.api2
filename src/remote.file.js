@@ -45,14 +45,15 @@ function parse(data){
 
 function dirCompactor(list){
     let cList =[]
-    list.forEach( el => {
-        if(
-            el.longname[0] == 'd'
-            ||
-            el.filename.length > 4 && el.filename.slice(el.filename.length - 4, el.filename.length) == '.pnt'
-        )
-                cList.push({ name: el.filename, isDir: (el.longname[0] == 'd')})
-    })
+    if (list)
+        list.forEach( el => {
+            if(
+                el.longname[0] == 'd'
+                ||
+                el.filename.length > 4 && el.filename.slice(el.filename.length - 4, el.filename.length) == '.pnt'
+            )
+                    cList.push({ name: el.filename, isDir: (el.longname[0] == 'd')})
+        });
     return cList.sort();
 }
 

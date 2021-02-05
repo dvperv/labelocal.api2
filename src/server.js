@@ -27,13 +27,25 @@ fastify.get('/', async (request, reply) => {
 
 fastify.post('/dir', async (request, reply) => {
     console.log("Dir Path: " + request.body.path);
-    let res = await remote.getDir(request.body.path);
+    let res = null;
+    try {
+        res = await remote.getDir(request.body.path);
+    }
+    catch (e) {
+        console.log('Error on DIR request: ' + e.toString())
+    }
     return res;
 })
 
 fastify.post('/file', async (request, reply) => {
     console.log("File Path: " + request.body.path);
-    let res = await remote.getFile(request.body.path);
+    let res = null;
+    try {
+        res = await remote.getFile(request.body.path);
+    }
+    catch (e) {
+        console.log('Error on FILE request: ' + e.toString())
+    }
     return res;
 })
 
