@@ -53,7 +53,7 @@ function dirCompactor(list){
         )
                 cList.push({ name: el.filename, isDir: (el.longname[0] == 'd')})
     })
-    return cList;
+    return cList.sort();
 }
 
 module.exports = {
