@@ -46,19 +46,6 @@ module.exports = {
         }
     },
 
-    //#upsert
-    // upsert: async (request, reply) => { //TODO
-    //     try {
-    //         const metaId = request.params.id;
-    //         const updates = request.body;
-    //         await model.findByIdAndUpdate(metaId, updates);
-    //         const updatedMeta = await model.findById(metaId);
-    //         reply.code(200).send({ data: updatedMeta });
-    //     } catch (e) {
-    //         reply.code(500).send(e);
-    //     }
-    // },
-
     //#delete
     delete: async (request, reply) => {
         try {
