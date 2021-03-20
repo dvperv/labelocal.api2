@@ -27,9 +27,8 @@ try {
 }
 
 fastify.register(require('fastify-cors'), {
-    origin: 'https://labelocal.onrender.com',
+    origin: true,
     methods: 'GET,PUT,POST,DELETE,OPTIONS',
-    credentials: true,
 })
 
 // Declare a route
