@@ -29,6 +29,7 @@ try {
 fastify.register(require('fastify-cors'), {
     origin: '*',
     methods: 'GET,PUT,POST,DELETE,OPTIONS',
+    strictPreflight: false
     // allowedHeaders: ['Content-Type', 'Authorization']
 })
 
