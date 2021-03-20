@@ -16,6 +16,7 @@
   "license": "ISC",
   "dependencies": {
     "fastify": "^3.11.0",
+    "fastify-auth0-verify": "^0.4.2",
     "fastify-cors": "^5.2.0",
     "mongoose": "^5.11.13",
     "ssh2": "^0.8.9"

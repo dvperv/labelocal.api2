@@ -5,6 +5,19 @@ const remote = require('./remote.file')
 const config = require('./config')
 const routesMeta = require('./routes/routes.file.meta')
 
+fastify.register(require('fastify-auth0-verify'), {
+    domain: config.authprovider.domain,
+    secret: config.authprovider.secret
+});
+
+fastify.addHook("onRequest", async (request, reply) => {
+    try {
+        await request.jwtVerify()
+    } catch (err) {
+        reply.send(err)
+    }
+});
+
 //connected fastify to mongoose
 try {
     console.log(config.mongo)
