@@ -27,9 +27,9 @@ try {
 }
 
 fastify.register(require('fastify-cors'), {
-    origin: false,//'*',
-    methods: 'GET,PUT,POST,DELETE',
-    allowedHeaders: ['Content-Type', 'Authorization']
+    origin: '*',
+    methods: 'GET,PUT,POST,DELETE,OPTIONS',
+    // allowedHeaders: ['Content-Type', 'Authorization']
 })
 
 // Declare a route
