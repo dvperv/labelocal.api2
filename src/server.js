@@ -29,15 +29,9 @@ fastify.addHook("onRequest",
         request,
         reply) => {
         try {
-            // if (request.method === 'OPTIONS') {
-            //     reply
-            //         .header('Access-Control-Allow-Origin', '*')
-            //         .header('Access-Control-Allow-Headers', 'content-type')
-            //         .send();
-            // }
-            // else
-                await request.jwtVerify()
-        } catch (err) {
+            await request.jwtVerify()
+        }
+        catch (err) {
             reply.send(err)
         }
     });
