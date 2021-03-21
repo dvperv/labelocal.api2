@@ -7,15 +7,7 @@ const routesMeta = require('./routes/routes.file.meta')
 
 fastify.register(require('fastify-auth0-verify'), {
     domain: config.authprovider.domain,
-    secret: config.authprovider.secret
-});
-
-fastify.addHook("onRequest", async (request, reply) => {
-    try {
-        await request.jwtVerify()
-    } catch (err) {
-        reply.send(err)
-    }
+    audience: config.authprovider.audience,
 });
 
 //connected fastify to mongoose
@@ -27,10 +19,28 @@ try {
 }
 
 fastify.register(require('fastify-cors'), {
-    origin: true,
+    origin: '*',
     methods: 'GET,PUT,POST,DELETE,OPTIONS',
+    allowedHeaders: 'Content-Type,Authorization',
 })
 
+fastify.addHook("onRequest",
+    async (
+        request,
+        reply) => {
+        try {
+            // if (request.method === 'OPTIONS') {
+            //     reply
+            //         .header('Access-Control-Allow-Origin', '*')
+            //         .header('Access-Control-Allow-Headers', 'content-type')
+            //         .send();
+            // }
+            // else
+                await request.jwtVerify()
+        } catch (err) {
+            reply.send(err)
+        }
+    });
 // Declare a route
 routesMeta(fastify);
 
