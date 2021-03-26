@@ -29,6 +29,8 @@ fastify.addHook("onRequest",
         request,
         reply) => {
         try {
+            console.log(request.url)
+            if (request.method == 'POST' && request.url == '/file') return;
             await request.jwtVerify()
         }
         catch (err) {
